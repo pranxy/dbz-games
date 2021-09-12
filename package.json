@@ -29,6 +29,9 @@
     "@angular-devkit/build-angular": "~12.2.5",
     "@angular/cli": "~12.2.5",
     "@angular/compiler-cli": "~12.2.5",
+    "@tailwindcss/aspect-ratio": "0.2.1",
+    "@tailwindcss/forms": "0.3.3",
+    "@tailwindcss/typography": "0.4.1",
     "@types/jasmine": "^3.9.0",
     "@types/node": "^16.9.1",
     "jasmine-core": "~3.9.0",
@@ -37,6 +40,7 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "^4.0.1",
     "karma-jasmine-html-reporter": "^1.7.0",
-    "typescript": "~4.4.3"
+    "tailwindcss": "2.2.15",
+    "typescript": "^4.3.5"
   }
 }
