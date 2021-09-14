@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Game } from 'src/app/models/game';
 import { SupabaseService } from '../../services/supabase.service';
 
@@ -10,52 +9,61 @@ import { SupabaseService } from '../../services/supabase.service';
     styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-    todos: Game[] = [];
+    games: Game[] = [];
     todoForm: FormGroup = new FormGroup({
-        task: new FormControl(),
+        game: new FormControl('', [Validators.required]),
+        platform: new FormControl('', [Validators.required]),
+        year: new FormControl(),
     });
     errorText: string | undefined | null;
 
-    constructor(
-        private readonly supabase: SupabaseService,
-        private readonly router: Router
-    ) {}
+    constructor(private readonly supabase: SupabaseService) {}
 
     ngOnInit(): void {
         this.fetchTodos();
     }
 
     async fetchTodos(): Promise<void> {
-        let { data: todos, error } = await this.supabase.fetchTodos();
+        let { data: games, error } = await this.supabase.fetchGames();
+
+        console.log(games);
+
         if (error) {
             console.error('error', error.message);
         } else {
-            this.todos = todos ?? [];
+            this.games = games ?? [];
         }
     }
 
     async addTodo(): Promise<void> {
-        let task = this.todoForm.value.task.trim();
-        if (task.length <= 3) {
+        let game = this.todoForm.value.game.trim();
+        let platform = this.todoForm.value.platform.trim();
+        let year = this.todoForm.value.year;
+
+        if (game.length <= 3) {
             this.errorText = 'Task length should be more than 3!';
         } else {
-            let { data: todo, error } = await this.supabase.addTodo(task);
+            let { data: todo, error } = await this.supabase.addTodo({
+                game,
+                platform,
+                year,
+            });
             if (error) {
                 this.errorText = error.message;
             } else {
-                this.todos = [todo, ...this.todos];
+                this.games = [todo, ...this.games];
                 this.errorText = null;
                 this.todoForm.reset();
             }
         }
     }
 
-    async toggleComplete(id: string, is_complete: boolean): Promise<void> {
+    async toggleAcquired(id: string, is_acquired: boolean): Promise<void> {
         try {
-            await this.supabase.toggleComplete(id, is_complete);
-            this.todos = this.todos.map((todo) => {
+            await this.supabase.toggleAcquired(id, is_acquired);
+            this.games = this.games.map((todo) => {
                 if (todo.id === id) {
-                    return { ...todo, is_complete: !is_complete };
+                    return { ...todo, is_acquired: !is_acquired };
                 }
                 return todo;
             });
@@ -67,18 +75,9 @@ export class HomeComponent implements OnInit {
     async delete(id: string): Promise<void> {
         try {
             await this.supabase.deleteTodo(id);
-            this.todos = this.todos.filter((todo) => todo.id !== id);
+            this.games = this.games.filter((todo) => todo.id !== id);
         } catch (error) {
             console.error('error', error);
-        }
-    }
-
-    async handleLogout(): Promise<void> {
-        try {
-            await this.supabase.signOut();
-            await this.router.navigate(['/auth']);
-        } catch (error) {
-            console.error(error);
         }
     }
 }

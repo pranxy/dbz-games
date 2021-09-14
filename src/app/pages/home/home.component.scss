@@ -1,3 +1,7 @@
 .todos-container {
     height: calc(100vh - 11.5rem);
 }
+
+.error {
+    @apply border max-w-sm self-center px-4 py-2 mt-4 text-center text-sm bg-red-100 border-red-300 text-red-400;
+}

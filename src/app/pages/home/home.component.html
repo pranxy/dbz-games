@@ -1,37 +1,38 @@
-<div class="w-screen fixed flex flex-col min-h-screen bg-gray-50">
-    <header class="flex justify-between items-center px-4 h-16 bg-gray-900">
-        <span class="text-2xl sm:text-4xl text-white border-b font-sans">
-            Todo List.
-        </span>
-        <button
-            (click)="handleLogout()"
-            class="
-                flex
-                justify-center
-                py-2
-                px-4
-                border border-transparent
-                text-sm
-                font-medium
-                rounded-md
-                text-white
-                bg-blue-600
-                hover:bg-blue-500
-                focus:outline-none
-                focus:border-blue-700
-                focus:shadow-outline-blue
-                active:bg-blue-700
-                transition
-                duration-150
-                ease-in-out
-            "
+<div class="w-screen flex flex-col h-screen bg-gray-50">
+    <app-header></app-header>
+
+    <div
+        class="flex flex-col flex-grow p-4 todos-container"
+        style="overflow: auto"
+    >
+        <mat-list>
+            <ng-container *ngIf="games.length; else emptyList">
+                <mat-list-item *ngFor="let game of games">
+                    <img matListAvatar src="..." alt="..." />
+                    <h3 matLine>{{ game.name }}</h3>
+                    <p matLine>
+                        <span> {{ game?.year | date: "YYYY" }} </span>
+                        <span class="demo-2">
+                            -- {{ game?.consoles | join: ", " }}
+                        </span>
+                    </p>
+                </mat-list-item>
+            </ng-container>
+            <ng-template #emptyList>
+                <span class="h-full flex justify-center items-center">
+                    You do have any games yet!
+                </span>
+            </ng-template>
+        </mat-list>
+        <mat-paginator
+            [length]="100"
+            [pageSize]="10"
+            [pageSizeOptions]="[5, 10, 25, 100]"
+            aria-label="Select page"
         >
-            Logout
-        </button>
-    </header>
-    <div class="flex flex-col flex-grow p-4 todos-container">
-        <div
-            [ngClass]="{ 'auto-rows-min': todos.length }"
+        </mat-paginator>
+        <!-- <div
+            [ngClass]="{ 'auto-rows-min': games.length }"
             class="
                 p-2
                 border
@@ -44,36 +45,22 @@
                 first:mt-8
             "
         >
-            <ng-container *ngIf="todos.length; else emptyList">
+            <ng-container *ngIf="games.length; else emptyList">
                 <app-game-item
-                    *ngFor="let todo of todos"
+                    *ngFor="let todo of games"
                     [todo]="todo"
                     (delete)="delete(todo.id)"
-                    (toggleComplete)="toggleComplete(todo.id, todo.is_complete)"
+                    (toggleComplete)="toggleAcquired(todo.id, todo.is_acquired)"
                 >
                 </app-game-item>
             </ng-container>
             <ng-template #emptyList>
                 <span class="h-full flex justify-center items-center">
-                    You do have any tasks yet!
+                    You do have any games yet!
                 </span>
             </ng-template>
-        </div>
-        <div
-            *ngIf="errorText"
-            class="
-                border
-                max-w-sm
-                self-center
-                px-4
-                py-2
-                mt-4
-                text-center text-sm
-                bg-red-100
-                border-red-300
-                text-red-400
-            "
-        >
+        </div> -->
+        <!-- <div *ngIf="errorText" class="error">
             {{ errorText }}
         </div>
         <form
@@ -82,35 +69,26 @@
             class="flex m-4 mt-0 h-10 mt-8"
         >
             <input
-                formControlName="task"
+                formControlName="game"
                 type="text"
+                placeholder="Game"
                 class="bg-gray-200 border px-2 border-gray-300 w-full mr-4"
             />
-            <button
-                type="submit"
-                class="
-                    flex
-                    justify-center
-                    py-2
-                    px-4
-                    border border-transparent
-                    text-sm
-                    font-medium
-                    rounded-md
-                    text-white
-                    bg-blue-600
-                    hover:bg-blue-500
-                    focus:outline-none
-                    focus:border-blue-700
-                    focus:shadow-outline-blue
-                    active:bg-blue-700
-                    transition
-                    duration-150
-                    ease-in-out
-                "
-            >
-                Add
-            </button>
-        </form>
+            <input
+                formControlName="platform"
+                type="text"
+                placeholder="Platform"
+                class="bg-gray-200 border px-2 border-gray-300 w-50 mr-4"
+            />
+
+            <input
+                class="bg-gray-200 border px-2 border-gray-300 w-20 mr-4"
+                type="number"
+                min="1900"
+                max="2100"
+                formControlName="year"
+            />
+            <button type="submit" color="primary" mat-flat-button>Add</button>
+        </form> -->
     </div>
 </div>

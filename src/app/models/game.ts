@@ -1,7 +1,13 @@
 export interface Game {
     id: string;
-    user_id: string;
-    task: string;
-    is_complete: boolean;
+    name: string;
+    year: string;
+    consoles: Console[];
+    is_acquired: boolean;
     inserted_at: Date;
+}
+
+export interface Console {
+    id: string;
+    name: string;
 }

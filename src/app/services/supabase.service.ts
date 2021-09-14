@@ -8,6 +8,8 @@ import {
 } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 
+interface AddGame {}
+
 @Injectable({
     providedIn: 'root',
 })
@@ -58,30 +60,48 @@ export class SupabaseService {
         });
     }
 
-    fetchTodos() {
+    fetchGames() {
         return this.supabaseClient
-            .from('todos')
-            .select('*')
+            .from('games')
+            .select(
+                `
+                id,
+                name,
+                year,
+                consoles (
+                    id,
+                    name
+                )
+            `
+            )
             .order('id', { ascending: false });
     }
 
-    addTodo(task: string) {
+    addTodo({
+        game,
+        platform,
+        year,
+    }: {
+        game: string;
+        platform: string;
+        year: string;
+    }) {
         const userId = this.getSession()?.user?.id as string;
         return this.supabaseClient
-            .from('todos')
-            .insert({ task, user_id: userId })
+            .from('games')
+            .insert({ game, platform, year, user_id: userId })
             .single();
     }
 
-    toggleComplete(id: string, isCompleted: boolean) {
+    toggleAcquired(id: string, isAcquired: boolean) {
         return this.supabaseClient
-            .from('todos')
-            .update({ is_complete: !isCompleted })
+            .from('games')
+            .update({ is_acquired: !isAcquired })
             .eq('id', id)
             .single();
     }
 
     deleteTodo(id: string) {
-        return this.supabaseClient.from('todos').delete().eq('id', id);
+        return this.supabaseClient.from('games').delete().eq('id', id);
     }
 }

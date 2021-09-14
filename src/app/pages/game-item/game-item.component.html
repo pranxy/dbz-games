@@ -1,23 +1,25 @@
-<div class="p-3 max-h-14 flex align-center justify-between border">
+<div
+    class="p-3 max-h-14 flex align-center justify-between border"
+    style="align-items: center"
+>
     <span class="truncate flex-grow">
         <input
             class="cursor-pointer mr-2"
             (change)="toggleComplete.emit()"
             type="checkbox"
-            [checked]="todo?.is_complete"
+            [checked]="todo?.is_acquired"
         />
         <span
-            [ngClass]="{ 'line-through': todo?.is_complete }"
+            [ngClass]="{ 'line-through': todo?.is_acquired }"
             class="w-full flex-grow"
         >
-            {{ todo?.task }}
+            [{{ todo?.year | date: "YYYY" }}] <b>{{ todo?.name }}</b> / (<span
+                >{{ todo?.consoles | join: ", " }}</span
+            >)
         </span>
     </span>
-    <button
-        type="button"
-        class="font-mono text-red-500 text-xl border px-2"
-        (click)="delete.emit()"
-    >
+
+    <button mat-icon-button type="button" class="" (click)="delete.emit()">
         X
     </button>
 </div>
