@@ -1,5 +1,14 @@
 <mat-toolbar>
-    <span>DBZ Games</span>
+    <a [routerLink]="['/']">DBZ Games</a>
     <span class="spacer"></span>
+
+    <app-new-game></app-new-game>
+    <a
+        [routerLink]="['/admin/new-platform']"
+        routerLinkActive="router-link-active"
+        mat-button
+    >
+        New Platform
+    </a>
     <button (click)="handleLogout()" mat-button>Logout</button>
 </mat-toolbar>

@@ -13,12 +13,12 @@ interface HelperText {
     selector: 'app-auth',
     templateUrl: './auth.component.html',
     styleUrls: ['./auth.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthComponent {
     authForm: FormGroup = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', Validators.required),
+        password: new FormControl('', Validators.required)
     });
 
     helperText: HelperText | undefined;
@@ -37,7 +37,7 @@ export class AuthComponent {
         } else {
             this.helperText = {
                 error: false,
-                text: 'Password recovery email has been sent.',
+                text: 'Password recovery email has been sent.'
             };
         }
     }
@@ -57,7 +57,7 @@ export class AuthComponent {
         } else if (user && !session && !error) {
             this.helperText = {
                 error: false,
-                text: 'An email has been sent to you for verification!',
+                text: 'An email has been sent to you for verification!'
             };
         }
     }

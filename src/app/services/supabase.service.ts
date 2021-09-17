@@ -4,14 +4,14 @@ import {
     createClient,
     Provider,
     Session,
-    SupabaseClient,
+    SupabaseClient
 } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 
 interface AddGame {}
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class SupabaseService {
     private supabaseClient: SupabaseClient;
@@ -56,7 +56,7 @@ export class SupabaseService {
 
     handleNewPassword(newPassword: string) {
         return this.supabaseClient.auth.api.updateUser(this.token as string, {
-            password: newPassword,
+            password: newPassword
         });
     }
 
@@ -80,7 +80,7 @@ export class SupabaseService {
     addTodo({
         game,
         platform,
-        year,
+        year
     }: {
         game: string;
         platform: string;

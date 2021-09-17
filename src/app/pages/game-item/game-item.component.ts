@@ -3,7 +3,7 @@ import {
     Component,
     EventEmitter,
     Input,
-    Output,
+    Output
 } from '@angular/core';
 import { Game } from 'src/app/models/game';
 
@@ -11,7 +11,7 @@ import { Game } from 'src/app/models/game';
     selector: 'app-game-item',
     templateUrl: './game-item.component.html',
     styleUrls: ['./game-item.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GameItemComponent {
     @Input() todo: Game | undefined;

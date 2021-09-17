@@ -8,9 +8,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NewGameModule } from './components/new-game/new-game.module';
+import { AdminModule } from './pages/admin/admin.module';
 import { AuthComponent } from './pages/auth/auth.component';
 import { GameItemComponent } from './pages/game-item/game-item.component';
 import { JoinPipe } from './pages/game-item/join.pipe';
+import { GamesComponent } from './pages/games/games.component';
 import { HeaderComponent } from './pages/home/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
@@ -19,7 +22,7 @@ const material = [
     MatToolbarModule,
     MatButtonModule,
     MatListModule,
-    MatPaginatorModule,
+    MatPaginatorModule
 ];
 
 @NgModule({
@@ -32,6 +35,7 @@ const material = [
         GameItemComponent,
         HeaderComponent,
         JoinPipe,
+        GamesComponent
     ],
     imports: [
         BrowserModule,
@@ -39,7 +43,9 @@ const material = [
         AppRoutingModule,
         BrowserAnimationsModule,
         ...material,
+        AdminModule,
+        NewGameModule
     ],
-    bootstrap: [AppComponent],
+    bootstrap: [AppComponent]
 })
 export class AppModule {}

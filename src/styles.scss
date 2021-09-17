@@ -24,8 +24,8 @@ $dbz-games-theme: mat.define-light-theme(
         color: (
             primary: $dbz-games-primary,
             accent: $dbz-games-accent,
-            warn: $dbz-games-warn,
-        ),
+            warn: $dbz-games-warn
+        )
     )
 );
 
@@ -34,9 +34,7 @@ $dbz-games-theme: mat.define-light-theme(
 // that you are using.
 @include mat.all-component-themes($dbz-games-theme);
 
-@import "tailwindcss/base";
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
+@import 'tailwindcss/utilities';
 
 body {
     margin: 0;
@@ -54,9 +52,34 @@ body {
 }
 body {
     margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
+    font-family: Roboto, 'Helvetica Neue', sans-serif;
+    overflow: hidden;
 }
 
 .spacer {
     flex: 1 1 auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #edf2f7;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 100vh;
+    border: 3px solid #edf2f7;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
 }

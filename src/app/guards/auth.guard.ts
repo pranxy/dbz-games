@@ -3,7 +3,7 @@ import { CanActivate, Router } from '@angular/router';
 import { SupabaseService } from '../services/supabase.service';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
     constructor(

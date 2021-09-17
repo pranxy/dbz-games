@@ -6,34 +6,20 @@ import { SupabaseService } from '../../services/supabase.service';
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss'],
+    styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
     games: Game[] = [];
     todoForm: FormGroup = new FormGroup({
         game: new FormControl('', [Validators.required]),
         platform: new FormControl('', [Validators.required]),
-        year: new FormControl(),
+        year: new FormControl()
     });
     errorText: string | undefined | null;
 
     constructor(private readonly supabase: SupabaseService) {}
 
-    ngOnInit(): void {
-        this.fetchTodos();
-    }
-
-    async fetchTodos(): Promise<void> {
-        let { data: games, error } = await this.supabase.fetchGames();
-
-        console.log(games);
-
-        if (error) {
-            console.error('error', error.message);
-        } else {
-            this.games = games ?? [];
-        }
-    }
+    ngOnInit(): void {}
 
     async addTodo(): Promise<void> {
         let game = this.todoForm.value.game.trim();
@@ -46,7 +32,7 @@ export class HomeComponent implements OnInit {
             let { data: todo, error } = await this.supabase.addTodo({
                 game,
                 platform,
-                year,
+                year
             });
             if (error) {
                 this.errorText = error.message;
@@ -61,7 +47,7 @@ export class HomeComponent implements OnInit {
     async toggleAcquired(id: string, is_acquired: boolean): Promise<void> {
         try {
             await this.supabase.toggleAcquired(id, is_acquired);
-            this.games = this.games.map((todo) => {
+            this.games = this.games.map(todo => {
                 if (todo.id === id) {
                     return { ...todo, is_acquired: !is_acquired };
                 }
@@ -75,7 +61,7 @@ export class HomeComponent implements OnInit {
     async delete(id: string): Promise<void> {
         try {
             await this.supabase.deleteTodo(id);
-            this.games = this.games.filter((todo) => todo.id !== id);
+            this.games = this.games.filter(todo => todo.id !== id);
         } catch (error) {
             console.error('error', error);
         }

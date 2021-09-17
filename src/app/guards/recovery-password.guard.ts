@@ -4,13 +4,13 @@ import {
     CanActivate,
     Router,
     RouterStateSnapshot,
-    UrlTree,
+    UrlTree
 } from '@angular/router';
 import { Observable } from 'rxjs';
 import { SupabaseService } from '../services/supabase.service';
 
 @Injectable({
-    providedIn: 'root',
+    providedIn: 'root'
 })
 export class RecoveryPasswordGuard implements CanActivate {
     constructor(
