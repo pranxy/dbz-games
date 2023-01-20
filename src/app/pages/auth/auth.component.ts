@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Provider } from '@supabase/supabase-js';
 import { AuthService } from 'src/app/services/auth.service';
@@ -16,9 +16,9 @@ interface HelperText {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthComponent {
-    authForm: FormGroup = new FormGroup({
-        email: new FormControl('', [Validators.required, Validators.email]),
-        password: new FormControl('', Validators.required)
+    authForm: UntypedFormGroup = new UntypedFormGroup({
+        email: new UntypedFormControl('', [Validators.required, Validators.email]),
+        password: new UntypedFormControl('', Validators.required)
     });
 
     helperText: HelperText | undefined;
