@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Provider } from '@supabase/supabase-js';
-import { SupabaseService } from 'src/app/services/supabase.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 interface HelperText {
     text: string;
@@ -24,14 +24,14 @@ export class AuthComponent {
     helperText: HelperText | undefined;
 
     constructor(
-        private readonly supabase: SupabaseService,
+        private readonly auth: AuthService,
         private readonly router: Router
     ) {}
 
     async forgotPassword(): Promise<void> {
         const email = prompt('Please enter your email:');
 
-        let { error } = await this.supabase.resetPassword(email as string);
+        let { error } = await this.auth.resetPassword(email as string);
         if (error) {
             console.error('Error: ', error.message);
         } else {
@@ -47,8 +47,8 @@ export class AuthComponent {
 
         const { user, error, session } =
             type === 'LOGIN'
-                ? await this.supabase.signIn(email, password)
-                : await this.supabase.signUp(email, password);
+                ? await this.auth.signIn(email, password)
+                : await this.auth.signUp(email, password);
 
         if (user && type === 'LOGIN') {
             await this.router.navigate(['/']);
@@ -65,7 +65,7 @@ export class AuthComponent {
     async handleOAuthLogin(provider: Provider): Promise<void> {
         // You need to enable the third party auth you want in Authentication > Settings
         // Read more on: https://supabase.io/docs/guides/auth#third-party-logins
-        let { error } = await this.supabase.signInWithProvider(provider);
-        if (error) console.error('Error: ', error.message);
+        // let { error } = await this.auth.signInWithProvider(provider);
+        // if (error) console.error('Error: ', error.message);
     }
 }

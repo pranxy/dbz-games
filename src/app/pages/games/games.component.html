@@ -1,9 +1,9 @@
 <!-- background: #ffc500 -->
 <div class="flex flex-col flex-grow p-4" style="overflow: auto">
-    <mat-list>
+    <mat-list *ngIf="(games$|async) as games">
         <ng-container *ngIf="games.length; else emptyList">
             <mat-list-item *ngFor="let game of games">
-                <img matListAvatar src="..." alt="..." />
+                <img matListAvatar [src]="game.img_url" alt="..." />
                 <h3 matLine>{{ game.name }}</h3>
                 <p matLine>
                     <span> {{ game?.year | date: "YYYY" }} </span>

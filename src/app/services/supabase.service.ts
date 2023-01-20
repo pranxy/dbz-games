@@ -2,106 +2,55 @@ import { Injectable } from '@angular/core';
 import {
     AuthChangeEvent,
     createClient,
-    Provider,
     Session,
     SupabaseClient
 } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 
-interface AddGame {}
-
 @Injectable({
     providedIn: 'root'
 })
 export class SupabaseService {
-    private supabaseClient: SupabaseClient;
-    token: string | undefined;
+    private supabase: SupabaseClient;
 
     constructor() {
-        this.supabaseClient = createClient(
+        this.supabase = createClient(
             environment.supabaseUrl,
             environment.supabaseKey
         );
     }
 
-    getSession(): Session | null {
-        return this.supabaseClient.auth.session();
+    get user() {
+        return this.supabase.auth.user();
     }
 
-    signUp(email: string, password: string) {
-        return this.supabaseClient.auth.signUp({ email, password });
+    get session() {
+        return this.supabase.auth.session();
     }
 
-    signIn(email: string, password: string) {
-        return this.supabaseClient.auth.signIn({ email, password });
+    get api() {
+        return this.supabase.auth.api;
     }
 
-    signInWithProvider(provider: Provider) {
-        return this.supabaseClient.auth.signIn({ provider });
-    }
-
-    signOut() {
-        this.supabaseClient.auth.signOut().catch(console.error);
+    table(resource: string) {
+        return this.supabase.from(resource);
     }
 
     authChanges(
         callback: (event: AuthChangeEvent, session: Session | null) => void
     ) {
-        return this.supabaseClient.auth.onAuthStateChange(callback);
+        return this.supabase.auth.onAuthStateChange(callback);
     }
 
-    resetPassword(email: string) {
-        return this.supabaseClient.auth.api.resetPasswordForEmail(email);
+    signIn({ email, password }: { email: string; password: string }) {
+        return this.supabase.auth.signIn({ email, password });
     }
 
-    handleNewPassword(newPassword: string) {
-        return this.supabaseClient.auth.api.updateUser(this.token as string, {
-            password: newPassword
-        });
+    signUp({ email, password }: { email: string; password: string }) {
+        return this.supabase.auth.signUp({ email, password });
     }
 
-    fetchGames() {
-        return this.supabaseClient
-            .from('games')
-            .select(
-                `
-                id,
-                name,
-                year,
-                consoles (
-                    id,
-                    name
-                )
-            `
-            )
-            .order('id', { ascending: false });
-    }
-
-    addTodo({
-        game,
-        platform,
-        year
-    }: {
-        game: string;
-        platform: string;
-        year: string;
-    }) {
-        const userId = this.getSession()?.user?.id as string;
-        return this.supabaseClient
-            .from('games')
-            .insert({ game, platform, year, user_id: userId })
-            .single();
-    }
-
-    toggleAcquired(id: string, isAcquired: boolean) {
-        return this.supabaseClient
-            .from('games')
-            .update({ is_acquired: !isAcquired })
-            .eq('id', id)
-            .single();
-    }
-
-    deleteTodo(id: string) {
-        return this.supabaseClient.from('games').delete().eq('id', id);
+    signOut() {
+        return this.supabase.auth.signOut();
     }
 }

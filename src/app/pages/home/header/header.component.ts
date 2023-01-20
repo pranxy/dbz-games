@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { SupabaseService } from 'src/app/services/supabase.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
     selector: 'app-header',
@@ -10,7 +10,7 @@ import { SupabaseService } from 'src/app/services/supabase.service';
 })
 export class HeaderComponent implements OnInit {
     constructor(
-        private readonly supabase: SupabaseService,
+        private readonly auth: AuthService,
         private readonly router: Router
     ) {}
 
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
 
     async handleLogout(): Promise<void> {
         try {
-            await this.supabase.signOut();
+            await this.auth.signOut();
             await this.router.navigate(['/auth']);
         } catch (error) {
             console.error(error);

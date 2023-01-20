@@ -3,6 +3,7 @@ export interface Game {
     name: string;
     year: string;
     consoles: Console[];
+    img_url: string;
     is_acquired: boolean;
     inserted_at: Date;
 }
