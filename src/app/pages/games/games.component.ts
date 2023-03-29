@@ -23,7 +23,7 @@ export class GamesComponent implements OnInit {
         if (error) {
             console.error('error', error.message);
         } else {
-            this.games = games ?? [];
+            // this.games = games ?? [];
         }
     }
 }

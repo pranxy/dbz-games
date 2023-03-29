@@ -18,17 +18,11 @@ import { HeaderComponent } from './pages/home/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RecoveryPasswordComponent } from './pages/recovery-password/recovery-password.component';
 
-const material = [
-    MatToolbarModule,
-    MatButtonModule,
-    MatListModule,
-    MatPaginatorModule
-];
+const material = [MatToolbarModule, MatButtonModule, MatListModule, MatPaginatorModule];
 
 @NgModule({
     declarations: [
         AppComponent,
-        AuthComponent,
         HomeComponent,
         GameItemComponent,
         RecoveryPasswordComponent,
@@ -44,7 +38,8 @@ const material = [
         BrowserAnimationsModule,
         ...material,
         AdminModule,
-        NewGameModule
+        NewGameModule,
+        AuthComponent
     ],
     bootstrap: [AppComponent]
 })

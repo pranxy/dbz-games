@@ -6,13 +6,11 @@ import { SupabaseService } from '../services/supabase.service';
     providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-    constructor(
-        private readonly supabase: SupabaseService,
-        private readonly router: Router
-    ) {}
+    constructor(private readonly supabase: SupabaseService, private readonly router: Router) {}
 
     canActivate(): boolean {
-        const isSignedIn = !!this.supabase.getSession()?.user;
+        // const isSignedIn = !!this.supabase.getSession()?.user;
+        const isSignedIn = false;
 
         if (!isSignedIn) {
             this.router.navigate(['/auth']);

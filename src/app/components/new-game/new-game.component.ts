@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { SupabaseService } from 'src/app/services/supabase.service';
 
@@ -26,13 +26,13 @@ export class NewGameComponent implements OnInit {
     templateUrl: 'new-game-dialog.html'
 })
 export class NewGameDialog {
-    form: FormGroup = new FormGroup({
-        game: new FormControl('', [
+    form: UntypedFormGroup = new UntypedFormGroup({
+        game: new UntypedFormControl('', [
             Validators.required,
             Validators.minLength(3)
         ]),
-        year: new FormControl(''),
-        platforms: new FormControl()
+        year: new UntypedFormControl(''),
+        platforms: new UntypedFormControl()
     });
 
     message: string | null;
@@ -42,7 +42,7 @@ export class NewGameDialog {
     platforms = ['NES', 'SUPER NES'];
 
     get platformsCtrl() {
-        return this.form.get('flatforms') as FormControl;
+        return this.form.get('flatforms') as UntypedFormControl;
     }
 
     constructor(private readonly supabase: SupabaseService) {

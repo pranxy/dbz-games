@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { Game } from 'src/app/models/game';
 import { SupabaseService } from '../../services/supabase.service';
 
@@ -10,10 +10,10 @@ import { SupabaseService } from '../../services/supabase.service';
 })
 export class HomeComponent implements OnInit {
     games: Game[] = [];
-    todoForm: FormGroup = new FormGroup({
-        game: new FormControl('', [Validators.required]),
-        platform: new FormControl('', [Validators.required]),
-        year: new FormControl()
+    todoForm: UntypedFormGroup = new UntypedFormGroup({
+        game: new UntypedFormControl('', [Validators.required]),
+        platform: new UntypedFormControl('', [Validators.required]),
+        year: new UntypedFormControl()
     });
     errorText: string | undefined | null;
 
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
             if (error) {
                 this.errorText = error.message;
             } else {
-                this.games = [todo, ...this.games];
+                // this.games = [todo, ...this.games];
                 this.errorText = null;
                 this.todoForm.reset();
             }
