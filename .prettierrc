@@ -1,0 +1,18 @@
+{
+    "tabWidth": 4,
+    "singleQuote": true,
+    "trailingComma": "none",
+    "arrowParens": "avoid",
+    "endOfLine": "auto",
+    "bracketSameLine": true,
+    "printWidth": 140,
+    "htmlWhitespaceSensitivity": "strict",
+    "overrides": [
+        {
+            "files": "*.json",
+            "options": {
+                "tabWidth": 2
+            }
+        }
+    ]
+}

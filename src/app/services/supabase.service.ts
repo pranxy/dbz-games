@@ -1,11 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-    AuthChangeEvent,
-    createClient,
-    Provider,
-    Session,
-    SupabaseClient
-} from '@supabase/supabase-js';
+import { AuthChangeEvent, createClient, Provider, Session, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 
 interface AddGame {}
@@ -18,10 +12,7 @@ export class SupabaseService {
     token: string | undefined;
 
     constructor() {
-        this.supabaseClient = createClient(
-            environment.supabaseUrl,
-            environment.supabaseKey
-        );
+        this.supabaseClient = createClient(environment.supabaseUrl, environment.supabaseKey);
     }
 
     getSession(): Session | null {
@@ -44,9 +35,7 @@ export class SupabaseService {
         this.supabaseClient.auth.signOut().catch(console.error);
     }
 
-    authChanges(
-        callback: (event: AuthChangeEvent, session: Session | null) => void
-    ) {
+    authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
         return this.supabaseClient.auth.onAuthStateChange(callback);
     }
 
@@ -60,6 +49,12 @@ export class SupabaseService {
         });
     }
 
+    async upload(path: string, file: File, bucket = 'games') {
+        const { data, error } = await this.supabaseClient.storage.from(bucket).upload(path, file);
+
+        return { data, error };
+    }
+
     fetchGames() {
         return this.supabaseClient
             .from('games')
@@ -67,6 +62,7 @@ export class SupabaseService {
                 `
                 id,
                 name,
+                img_url,
                 year,
                 consoles (
                     id,
@@ -77,28 +73,13 @@ export class SupabaseService {
             .order('id', { ascending: false });
     }
 
-    addTodo({
-        game,
-        platform,
-        year
-    }: {
-        game: string;
-        platform: string;
-        year: string;
-    }) {
+    addTodo({ game, platform, year }: { game: string; platform: string; year: string }) {
         const userId = this.getSession()?.user?.id as string;
-        return this.supabaseClient
-            .from('games')
-            .insert({ game, platform, year, user_id: userId })
-            .single();
+        return this.supabaseClient.from('games').insert({ game, platform, year, user_id: userId }).single();
     }
 
     toggleAcquired(id: string, isAcquired: boolean) {
-        return this.supabaseClient
-            .from('games')
-            .update({ is_acquired: !isAcquired })
-            .eq('id', id)
-            .single();
+        return this.supabaseClient.from('games').update({ is_acquired: !isAcquired }).eq('id', id).single();
     }
 
     deleteTodo(id: string) {

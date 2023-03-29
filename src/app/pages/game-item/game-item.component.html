@@ -1,20 +1,17 @@
-<div
+<!-- <div
     class="p-3 max-h-14 flex align-center justify-between border"
-    style="align-items: center"
->
+    style="align-items: center">
     <span class="truncate flex-grow">
         <input
             class="cursor-pointer mr-2"
             (change)="toggleComplete.emit()"
             type="checkbox"
-            [checked]="todo?.is_acquired"
-        />
+            [checked]="todo?.is_acquired" />
         <span
             [ngClass]="{ 'line-through': todo?.is_acquired }"
-            class="w-full flex-grow"
-        >
-            [{{ todo?.year | date: "YYYY" }}] <b>{{ todo?.name }}</b> / (<span
-                >{{ todo?.consoles | join: ", " }}</span
+            class="w-full flex-grow">
+            [{{ todo?.year | date: 'YYYY' }}] <b>{{ todo?.name }}</b> / (<span
+                >{{ todo?.consoles | join: ', ' }}</span
             >)
         </span>
     </span>
@@ -22,4 +19,31 @@
     <button mat-icon-button type="button" class="" (click)="delete.emit()">
         X
     </button>
+</div> -->
+
+<div
+    class="
+        flex flex-col
+        items-center
+        bg-white
+        rounded-lg
+        border
+        shadow-md
+        md:flex-row md:max-w-xl
+        hover:bg-gray-100
+        dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700
+    ">
+    <img
+        class="object-cover w-full h-96 rounded-t-lg md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
+        src="https://laqnjkgxzmmzaadsxwux.supabase.in/storage/v1/object/public/dbz/{{ todo?.img_url }}"
+        alt="" />
+    <div class="flex flex-col justify-between p-4 leading-normal">
+        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+            {{ todo?.name }}
+        </h5>
+        <span class="text-sm text-gray-500 dark:text-gray-400">{{ todo?.year | date: 'YYYY' }}</span>
+        <p class="mb-3 text-sm font-normal text-gray-700 dark:text-gray-400">
+            <span>{{ todo?.consoles | join: ', ' }}</span>
+        </p>
+    </div>
 </div>

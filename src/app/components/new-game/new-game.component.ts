@@ -15,7 +15,9 @@ export class NewGameComponent implements OnInit {
     ngOnInit(): void {}
 
     open() {
-        this.dialog.open(NewGameDialog);
+        this.dialog.open(NewGameDialog, {
+            width: '500px'
+        });
     }
 }
 
@@ -33,14 +35,43 @@ export class NewGameDialog {
         platforms: new FormControl()
     });
 
+    message: string | null;
+    status: boolean | undefined;
+    bucket: string | undefined;
+
     platforms = ['NES', 'SUPER NES'];
 
     get platformsCtrl() {
         return this.form.get('flatforms') as FormControl;
     }
 
-    constructor(private readonly supabase: SupabaseService) {}
+    constructor(private readonly supabase: SupabaseService) {
+        this.message = null;
+        this.status = false;
+    }
 
+    selectFile(event: Event) {
+        const input = event.target as HTMLInputElement;
+
+        if (!input.files || input.files.length == 0) {
+            this.message = 'You must select an image to upload.';
+            return;
+        }
+
+        this.status = true;
+        const file: File = input.files[0];
+        const name = file.name.replace(/ /g, '');
+
+        this.supabase.upload(name, file).then(data => {
+            if (data.error) {
+                this.message = `Error send message ${data.error.message}`;
+            } else {
+                console.log(data.data);
+                this.message = `File ${file.name} uploaded with success!`;
+            }
+            this.status = false;
+        });
+    }
     // async addTodo(): Promise<void> {
     //     let game = this.form.value.game.trim();
     //     let platform = this.form.value.platform.trim();
