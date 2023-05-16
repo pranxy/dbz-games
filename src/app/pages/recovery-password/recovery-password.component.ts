@@ -4,7 +4,8 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
     selector: 'app-recovery-password',
     templateUrl: './recovery-password.component.html',
     styleUrls: ['./recovery-password.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true
 })
 export class RecoveryPasswordComponent implements OnInit {
     constructor() {}

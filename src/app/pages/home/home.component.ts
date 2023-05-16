@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { Game } from 'src/app/models/game';
 import { SupabaseService } from '../../services/supabase.service';
+import { HeaderComponent } from './header/header.component';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss']
+    styleUrls: ['./home.component.scss'],
+    standalone: true,
+    imports: [HeaderComponent, RouterModule]
 })
 export class HomeComponent implements OnInit {
     games: Game[] = [];

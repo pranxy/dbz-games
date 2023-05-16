@@ -13,15 +13,16 @@ export class AuthService {
     constructor(private supabase: SupabaseService) {}
 
     getSession(): Session | null {
-        return this.supabase.session;
+        return null;
+        // return this.supabase.session;
     }
 
     signUp(email: string, password: string) {
-        return this.supabase.signUp({ email, password });
+        // return this.supabase.signUp({ email, password });
     }
 
     signIn(email: string, password: string) {
-        return this.supabase.signIn({ email, password });
+        // return this.supabase.signIn({ email, password });
     }
 
     // signInWithProvider(provider: Provider) {
@@ -29,22 +30,20 @@ export class AuthService {
     // }
 
     signOut() {
-        this.supabase.signOut().catch(console.error);
+        // this.supabase.signOut().catch(console.error);
     }
 
-    authChanges(
-        callback: (event: AuthChangeEvent, session: Session | null) => void
-    ) {
+    authChanges(callback: (event: AuthChangeEvent, session: Session | null) => void) {
         return this.supabase.authChanges(callback);
     }
 
     resetPassword(email: string) {
-        return this.supabase.api.resetPasswordForEmail(email);
+        // return this.supabase.api.resetPasswordForEmail(email);
     }
 
     handleNewPassword(newPassword: string) {
-        return this.supabase.api.updateUser(this.token as string, {
-            password: newPassword
-        });
+        // return this.supabase.api.updateUser(this.token as string, {
+        //     password: newPassword
+        // });
     }
 }

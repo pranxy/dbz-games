@@ -1,13 +1,22 @@
+import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
+import { ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatOptionModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { SupabaseService } from 'src/app/services/supabase.service';
 
 @Component({
     selector: 'app-new-game',
     templateUrl: './new-game.component.html',
     styleUrls: ['./new-game.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [MatButtonModule]
 })
 export class NewGameComponent implements OnInit {
     constructor(public dialog: MatDialog) {}
@@ -23,7 +32,19 @@ export class NewGameComponent implements OnInit {
 
 @Component({
     styleUrls: ['./new-game-dialog.scss'],
-    templateUrl: 'new-game-dialog.html'
+    templateUrl: 'new-game-dialog.html',
+    standalone: true,
+    imports: [
+        MatDialogModule,
+        ReactiveFormsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatSelectModule,
+        NgFor,
+        MatOptionModule,
+        MatDatepickerModule,
+        MatButtonModule
+    ]
 })
 export class NewGameDialog {
     form: UntypedFormGroup = new UntypedFormGroup({

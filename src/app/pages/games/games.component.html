@@ -1,6 +1,6 @@
 <!-- background: #ffc500 -->
 <div class="grid grid-rows-4 grid-flow-col gap-4 p-4" style="overflow: auto">
-    <app-game-item *ngFor="let game of games" [todo]="game"></app-game-item>
+    <app-game-item *ngFor="let game of games$ | async" [todo]="game"></app-game-item>
 
     <!-- <mat-list>
         <ng-container *ngIf="games.length; else emptyList">

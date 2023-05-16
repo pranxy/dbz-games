@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { Provider } from '@supabase/supabase-js';
+import { SupabaseService } from 'src/app/services/supabase.service';
 
 interface HelperText {
     text: string;
@@ -35,15 +36,15 @@ export class AuthComponent {
     async forgotPassword(): Promise<void> {
         const email = prompt('Please enter your email:');
 
-        let { error } = await this.auth.resetPassword(email as string);
-        if (error) {
-            console.error('Error: ', error.message);
-        } else {
-            this.helperText = {
-                error: false,
-                text: 'Password recovery email has been sent.'
-            };
-        }
+        // let { error } = await this.auth.resetPassword(email as string);
+        // if (error) {
+        //     console.error('Error: ', error.message);
+        // } else {
+        //     this.helperText = {
+        //         error: false,
+        //         text: 'Password recovery email has been sent.'
+        //     };
+        // }
     }
 
     async handleLogin(type: string): Promise<void> {

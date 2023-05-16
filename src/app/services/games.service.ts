@@ -7,10 +7,7 @@ import { SupabaseService } from './supabase.service';
     providedIn: 'root'
 })
 export class GamesService extends BaseService<any> {
-    constructor(
-        protected supabase: SupabaseService,
-        private auth: AuthService
-    ) {
+    constructor(protected supabase: SupabaseService, private auth: AuthService) {
         super(supabase, 'games');
     }
 
@@ -32,7 +29,7 @@ export class GamesService extends BaseService<any> {
             )
         `;
 
-        return this.find([], select, undefined, [['id', false]]);
+        // return this.find([], select, undefined, [['id', false]]);
 
         // return this.supabase
         //     .get('games', select)

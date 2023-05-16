@@ -5,7 +5,6 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { NewPlatformComponent } from './new-platform/new-platform.component';
 
 @NgModule({
-    declarations: [DashboardComponent, NewPlatformComponent],
-    imports: [CommonModule, AdminRoutingModule]
+    imports: [CommonModule, AdminRoutingModule, DashboardComponent, NewPlatformComponent]
 })
 export class AdminModule {}
