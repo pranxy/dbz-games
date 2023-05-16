@@ -3,8 +3,6 @@ import { AuthChangeEvent, createClient, Provider, Session, SupabaseClient, User 
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
 
-interface AddGame {}
-
 @Injectable({
     providedIn: 'root'
 })

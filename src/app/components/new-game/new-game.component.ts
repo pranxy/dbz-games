@@ -27,10 +27,7 @@ export class NewGameComponent implements OnInit {
 })
 export class NewGameDialog {
     form: UntypedFormGroup = new UntypedFormGroup({
-        game: new UntypedFormControl('', [
-            Validators.required,
-            Validators.minLength(3)
-        ]),
+        game: new UntypedFormControl('', [Validators.required, Validators.minLength(3)]),
         year: new UntypedFormControl(''),
         platforms: new UntypedFormControl()
     });

@@ -7,14 +7,14 @@ import {
     UrlTree
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { SupabaseService } from '../services/supabase.service';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RecoveryPasswordGuard implements CanActivate {
     constructor(
-        private readonly supabase: SupabaseService,
+        private readonly auth: AuthService,
         private readonly router: Router
     ) {}
 
@@ -34,7 +34,7 @@ export class RecoveryPasswordGuard implements CanActivate {
         // @ts-ignore
         if (result?.type === 'recovery') {
             // @ts-ignore
-            this.supabase.token = result.access_token;
+            this.auth.token = result.access_token;
             this.router.navigate(['/recovery-password']);
             return false;
         }

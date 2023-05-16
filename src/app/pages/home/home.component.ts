@@ -45,25 +45,25 @@ export class HomeComponent implements OnInit {
     }
 
     async toggleAcquired(id: string, is_acquired: boolean): Promise<void> {
-        try {
-            await this.supabase.toggleAcquired(id, is_acquired);
-            this.games = this.games.map(todo => {
-                if (todo.id === id) {
-                    return { ...todo, is_acquired: !is_acquired };
-                }
-                return todo;
-            });
-        } catch (error) {
-            console.error(error);
-        }
+        // try {
+        //     await this.supabase.toggleAcquired(id, is_acquired);
+        //     this.games = this.games.map(todo => {
+        //         if (todo.id === id) {
+        //             return { ...todo, is_acquired: !is_acquired };
+        //         }
+        //         return todo;
+        //     });
+        // } catch (error) {
+        //     console.error(error);
+        // }
     }
 
     async delete(id: string): Promise<void> {
-        try {
-            await this.supabase.deleteTodo(id);
-            this.games = this.games.filter(todo => todo.id !== id);
-        } catch (error) {
-            console.error('error', error);
-        }
+        // try {
+        //     await this.supabase.deleteTodo(id);
+        //     this.games = this.games.filter(todo => todo.id !== id);
+        // } catch (error) {
+        //     console.error('error', error);
+        // }
     }
 }
