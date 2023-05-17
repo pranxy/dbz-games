@@ -10,18 +10,13 @@ require('dotenv').config();
 const environment = argv.environment;
 const isProduction = environment === 'prod';
 
-if (
-    !process.env.ANGULAR_APP_SUPABASE_URL ||
-    !process.env.ANGULAR_APP_SUPABASE_KEY
-) {
+if (!process.env.ANGULAR_APP_SUPABASE_URL || !process.env.ANGULAR_APP_SUPABASE_KEY) {
     console.error('All the required environment variables were not provided!');
     process.exit(-1);
 }
 
 // Configure Angular `environment.ts` file path
-const targetPath = isProduction
-    ? `./src/environments/environment.prod.ts`
-    : `./src/environments/environment.ts`;
+const targetPath = isProduction ? `./src/environments/environment.prod.ts` : `./src/environments/environment.dev.ts`;
 
 // read environment variables from .env file
 require('dotenv').config();
